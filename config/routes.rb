@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   root 'pages#home'
   get 'about', to: 'pages#about'
   
+  #Resources basically adds all routes
   resources :articles
   
   # The priority is based upon order of creation: first created -> highest priority.
