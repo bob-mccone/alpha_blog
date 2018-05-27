@@ -55,9 +55,23 @@ class ArticlesController < ApplicationController
     #Find articles and display them
     @article = Article.find(params[:id])
   end
+  
+  #Delete article action, Note this needs to be called destroy or it wont work
+  def destroy
+    #Find article to delete
+    @article = Article.find(params[:id])
+    #Delete the article
+    @article.destroy
+    #Notify user article was deleted
+    flash[:notice] = "Article was successfully deleted"
+    #Redirect user to the index page
+    redirect_to articles_path
+  end
   private
     def article_params
       params.require(:article).permit(:title, :description)
     end
+  
+
   
 end

@@ -22,6 +22,8 @@
     <td><%= link_to 'Edit', edit_article_path(article) %></td>
     <!--Show article link to the side of the table-->
     <td><%= link_to 'Show', article_path(article) %></td>
+    <!--Delete article link to the side of the table with message to confirm, we need to specify its a destroy action to ruby so it knows-->
+    <td><%= link_to 'Delete', article_path(article), method: :delete, data: {confirm: "Are you sure?"} %></td>
   </tr>
   <% end %>
 </table>

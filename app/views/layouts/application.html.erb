@@ -7,13 +7,9 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-  <!--This displays the message when an article gets created-->
-  <% flash.each do |name, msg| %>
-    <ul>
-      <li><%= msg %></li>
-    </ul>
-  <% end %>
-<%= yield %>
+  <!--As we have moved the messages to another file we need to render it-->
+  <%= render 'layouts/messages' %>
+  <%= yield %>
 
 </body>
 </html>
