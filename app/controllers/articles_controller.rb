@@ -1,4 +1,6 @@
 class ArticlesController < ApplicationController
+  #Making certain actions call this method as it was repeated
+  before_action :set_article, only: [:edit, :update, :show, :destroy]
   
   #Index is the list of articles
   def index
@@ -15,7 +17,6 @@ class ArticlesController < ApplicationController
   #edit article action
   def edit
     #This finds the article as we are trying to edit one already created
-    @article = Article.find(params[:id])
   end
   
   #create article action
@@ -37,7 +38,6 @@ class ArticlesController < ApplicationController
   #update article action
   def update
     #Find the article that needs to be updated
-    @article = Article.find(params[:id])
     #If all good update article, need to tell what we updated
     if @article.update(article_params)
       #Message to user
@@ -53,13 +53,11 @@ class ArticlesController < ApplicationController
   #Show article action
   def show
     #Find articles and display them
-    @article = Article.find(params[:id])
   end
   
   #Delete article action, Note this needs to be called destroy or it wont work
   def destroy
     #Find article to delete
-    @article = Article.find(params[:id])
     #Delete the article
     @article.destroy
     #Notify user article was deleted
@@ -68,6 +66,9 @@ class ArticlesController < ApplicationController
     redirect_to articles_path
   end
   private
+    def set_article
+      @article = Article.find(params[:id])
+    end
     def article_params
       params.require(:article).permit(:title, :description)
     end
