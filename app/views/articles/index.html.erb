@@ -1,0 +1,27 @@
+<h1>
+  List of current articles
+</h1>
+<p>
+  <!--Link to create a new article-->
+  <%= link_to "Create new article", new_article_path %>
+</p>
+
+<!--Display articles in a table format-->
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Description</th>
+  </tr>
+  
+  <!--Do block to put articles in the table, article just for a single instance of article, articles for all articles-->
+  <% @articles.each do |article| %>
+  <tr>
+    <td><%= article.title %></td>
+    <td><%= article.description %></td>
+    <!--Edit article link to the side of the table-->
+    <td><%= link_to 'Edit', edit_article_path(article) %></td>
+    <!--Show article link to the side of the table-->
+    <td><%= link_to 'Show', article_path(article) %></td>
+  </tr>
+  <% end %>
+</table>

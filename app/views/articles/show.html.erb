@@ -10,3 +10,8 @@
 <p>
   Description: <%= @article.description %>
 </p>
+
+<!--Link to edit the article that they view, don't forget to give the article-->
+<%= link_to "Edit this article", edit_article_path(@article) %> |
+<!--Creating a link so they can go back-->
+<%= link_to "Back to articles listing", articles_path %>
