@@ -1,0 +1,23 @@
+<!--Displays validation error messages, as this will be a generic error message file we need to change the variable to a more generic one-->
+<% if obj.errors.any? %>
+  <div class="row">
+    <div class="col-xs-8 col-xs-offset-2">
+      <div class="panel panel-danger">
+        <div class="panel-heading">
+          <h2 class="panel-title">
+            <!--pluralize basically means if we get multiple errors it will say errors-->
+            <%= pluralize(obj.errors.count, "error") %>
+            prohibited this article from being saved:
+          </h2>
+          <div class="panel-body">
+            <ul>
+              <% obj.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

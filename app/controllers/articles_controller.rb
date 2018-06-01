@@ -25,8 +25,8 @@ class ArticlesController < ApplicationController
     @article = Article.new(article_params)
     #If all good save article
     if @article.save
-      #Flash displays message
-      flash[:notice] = "Article was successfully created"
+      #Flash displays message, changed the notice to success
+      flash[:success] = "Article was successfully created"
       #Then we redirect user to the article that they have created
       redirect_to article_path(@article)
     #If not all good render new article page
@@ -41,7 +41,7 @@ class ArticlesController < ApplicationController
     #If all good update article, need to tell what we updated
     if @article.update(article_params)
       #Message to user
-      flash[:notice] = "Article was successfully updated"
+      flash[:success] = "Article was successfully updated"
       #Redirect user to article that they have just edited
       redirect_to article_path(@article)
     #If can't update render the edit page
@@ -61,7 +61,7 @@ class ArticlesController < ApplicationController
     #Delete the article
     @article.destroy
     #Notify user article was deleted
-    flash[:notice] = "Article was successfully deleted"
+    flash[:danger] = "Article was successfully deleted"
     #Redirect user to the index page
     redirect_to articles_path
   end
