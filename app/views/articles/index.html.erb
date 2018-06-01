@@ -1,29 +1,27 @@
-<h1>
+<h1 align="center">
   List of current articles
 </h1>
-<p>
-  <!--Link to create a new article-->
-  <%= link_to "Create new article", new_article_path %>
-</p>
-
-<!--Display articles in a table format-->
-<table>
-  <tr>
-    <th>Title</th>
-    <th>Description</th>
-  </tr>
-  
-  <!--Do block to put articles in the table, article just for a single instance of article, articles for all articles-->
-  <% @articles.each do |article| %>
-  <tr>
-    <td><%= article.title %></td>
-    <td><%= article.description %></td>
-    <!--Edit article link to the side of the table-->
-    <td><%= link_to 'Edit', edit_article_path(article) %></td>
-    <!--Show article link to the side of the table-->
-    <td><%= link_to 'Show', article_path(article) %></td>
-    <!--Delete article link to the side of the table with message to confirm, we need to specify its a destroy action to ruby so it knows-->
-    <td><%= link_to 'Delete', article_path(article), method: :delete, data: {confirm: "Are you sure?"} %></td>
-  </tr>
-  <% end %>
-</table>
+<!--Do block to put articles in the table, article just for a single instance of article, articles for all articles-->
+<% @articles.each do |article| %>
+  <div class="row">
+    <div class="col-xs-8 col-xs-offset-2">
+      <div class="well well-lg">
+        <div class="article-title">
+          <!--Users can now go to the article just by clicking on the title-->
+          <%= link_to article.title, article_path(article) %>
+        </div>
+        <div class="article-body">
+          <!--Truncate will only show some of the description instead of all of it-->
+          <%= truncate(article.description, length: 100) %>
+        </div>
+        <div class="article-actions">
+          <!--Button to edit the article that they view, don't forget to give the article-->
+          <%= link_to "Edit this article", edit_article_path(article), class: "btn btn-xs btn-primary" %> 
+          <!--Button to delete the article-->
+          <%= link_to "Delete this article", article_path(article), method: :delete, data: { confirm: "Are you sure you want to delete the article?"}, 
+              class: "btn btn-xs btn-danger" %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
