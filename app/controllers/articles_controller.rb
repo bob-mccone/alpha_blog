@@ -23,6 +23,7 @@ class ArticlesController < ApplicationController
   def create
     #This creates a new article with a different id
     @article = Article.new(article_params)
+    @article.user = User.first
     #If all good save article
     if @article.save
       #Flash displays message, changed the notice to success
