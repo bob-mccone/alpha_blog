@@ -1,0 +1,30 @@
+<!--Do block to put articles in the table, article just for a single instance of article, articles for all articles, this is now changed to obj because it is in a partial file-->
+<% obj.each do |article| %>
+  <div class="row">
+    <div class="col-xs-8 col-xs-offset-2">
+      <div class="well well-lg">
+        <div class="article-title">
+          <!--Users can now go to the article just by clicking on the title-->
+          <%= link_to article.title, article_path(article) %>
+        </div>
+        <div class="article-body">
+          <!--Truncate will only show some of the description instead of all of it-->
+          <%= truncate(article.description, length: 100) %>
+          <div class="article-meta-details">
+            <!--Displaying who wrote the article as well as the time it was created and updated-->
+            <small>Created by: <%= article.user.username if article.user %>, 
+                    <%= time_ago_in_words(article.created_at) %> ago, 
+                    last updated: <%= time_ago_in_words(article.updated_at) %></small>
+          </div>
+        </div>
+        <div class="article-actions">
+          <!--Button to edit the article that they view, don't forget to give the article-->
+          <%= link_to "Edit this article", edit_article_path(article), class: "btn btn-xs btn-primary" %> 
+          <!--Button to delete the article-->
+          <%= link_to "Delete this article", article_path(article), method: :delete, data: { confirm: "Are you sure you want to delete the article?"}, 
+              class: "btn btn-xs btn-danger" %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
