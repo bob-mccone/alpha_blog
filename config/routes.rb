@@ -1,10 +1,16 @@
 Rails.application.routes.draw do
   
+  #Root or landing page
   root 'pages#home'
+  #About page
   get 'about', to: 'pages#about'
   
   #Resources basically adds all routes
   resources :articles
+  
+  #Signup page
+  get 'signup', to: 'users#new'
+  resources :users, except: [:new]
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
