@@ -4,8 +4,8 @@ class ArticlesController < ApplicationController
   
   #Index is the list of articles
   def index
-    #Getting all articles from the database
-    @articles = Article.all
+    #Getting articles from the database, paginate only list so many rather than all of them, dont always need per_page as it has a default
+    @articles = Article.paginate(page: params[:page], per_page: 5)
   end
   
   #New article action

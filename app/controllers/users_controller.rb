@@ -1,7 +1,8 @@
 class UsersController < ApplicationController
   
+  #Displaying 5 users per page
   def index
-    @users = User.all
+    @users = User.paginate(page: params[:page], per_page: 5)
   end
   
   def new
@@ -41,6 +42,8 @@ class UsersController < ApplicationController
   
   def show
     @user = User.find(params[:id])
+    #Pagination, getting all of the users articles but only showing certain ammount per page
+    @user_articles = @user.articles.paginate(page: params[:page], per_page: 5)
   end
   
   private

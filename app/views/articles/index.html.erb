@@ -2,5 +2,13 @@
 <h1 align="center">
   List of current articles
 </h1>
-
+<div align="center">
+  <!--Make the page paginate i.e. only display certain amount of articles-->
+  <%= will_paginate %>
+</div>
+<!--Render the article page but the obj will be the articles variable-->
 <%= render 'article', obj: @articles %>
+<div align="center">
+  <!--Make the page paginate i.e. only display certain amount of articles-->
+  <%= will_paginate %>
+</div>
