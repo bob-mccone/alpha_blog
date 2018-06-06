@@ -28,7 +28,8 @@ class ArticlesController < ApplicationController
   def create
     #This creates a new article with a different id
     @article = Article.new(article_params)
-    @article.user = User.first
+    #Making the current user the person who created the article
+    @article.user = current_user
     #If all good save article
     if @article.save
       #Flash displays message, changed the notice to success
