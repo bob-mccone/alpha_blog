@@ -17,10 +17,14 @@ class UsersController < ApplicationController
   
   def create
     @user = User.new(user_params)
-    #If save is successful display message and redirect them to the articles page
+    #If save is successful log them in,display message and redirect them to the articles page
     if @user.save
+      #Logs user in
+      session[:user_id] = @user.id
+      #Displays message
       flash[:success] = "welcome to the alpha blog #{@user.username}"
-      redirect_to articles_path
+      #Redirects the user to their account page
+      redirect_to user_path(@user)
     else
       #Render create user form with error messages
       render 'new'
