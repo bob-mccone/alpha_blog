@@ -1,6 +1,12 @@
 class ArticlesController < ApplicationController
+  
+  #Make sure the before actions are in the correct order or you may run into problems
   #Making certain actions call this method as it was repeated
   before_action :set_article, only: [:edit, :update, :show, :destroy]
+  #All actions to do with articles except index and show require you to be logged in
+  before_action :require_user, except: [:index, :show]
+  #Only users that created their own articles can edit, update and delete them
+  before_action :require_same_user, only: [:edit, :update, :destroy]
   
   #Index is the list of articles
   def index
@@ -16,7 +22,6 @@ class ArticlesController < ApplicationController
   
   #edit article action
   def edit
-    #This finds the article as we are trying to edit one already created
   end
   
   #create article action
@@ -66,14 +71,27 @@ class ArticlesController < ApplicationController
     #Redirect user to the index page
     redirect_to articles_path
   end
+  
   private
+    #Set_article method, removes repeated code
     def set_article
       @article = Article.find(params[:id])
     end
+    
+    #Article_params method, removes repeated code
     def article_params
       params.require(:article).permit(:title, :description)
     end
   
-
+    #Method to add in restrictions, allows only users who created them to edit or delete them
+    def require_same_user
+      #If current user does not match the user who created that article
+      if current_user != @article.user
+        #Display message
+        flash[:danger] = "You can only edit or delete your own articles"
+        #Redirect them to the root path, in this case it will be the list of articles
+        redirect_to root_path
+      end
+    end
   
 end

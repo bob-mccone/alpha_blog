@@ -1,5 +1,11 @@
 class UsersController < ApplicationController
   
+  #Make sure the before actions are in the correct order or you may run into problems
+  #Making the @user variable ready for the following actions
+  before_action :set_user, only: [:edit, :update, :show]
+  #Adding restrictions so you can't edit other peoples profiles
+  before_action :require_same_user, only: [:edit, :update]
+  
   #Displaying 5 users per page
   def index
     @users = User.paginate(page: params[:page], per_page: 5)
@@ -23,13 +29,10 @@ class UsersController < ApplicationController
   
   #Finds the user to edit
   def edit
-    @user = User.find(params[:id])
   end
   
   #Updates the edited user
   def update
-    #Finds user that needs to be updated
-    @user = User.find(params[:id])
     #If sucessful display message and redirect them to articles page
     if @user.update(user_params)
       flash[:success] = "Your account details were updated sucessfully"
@@ -41,14 +44,29 @@ class UsersController < ApplicationController
   end
   
   def show
-    @user = User.find(params[:id])
     #Pagination, getting all of the users articles but only showing certain ammount per page
     @user_articles = @user.articles.paginate(page: params[:page], per_page: 5)
   end
   
   private
-  #User parameters
+  #User parameters method
   def user_params
     params.require(:user).permit(:username, :email, :password)
+  end
+  
+  #Set_user method
+  def set_user
+    @user = User.find(params[:id])
+  end
+  
+  #Require_same_user, adds restriction for what you can do with other profiles
+  def require_same_user
+    #If current logged in user does not match the user that is being edited
+    if current_user !=@user
+      #Display message
+      flash[:danger] = "You can only edit your own account"
+      #Redirect them to the logged in root path, in this case it will be the list of articles
+      redirect_to root_path
+    end
   end
 end

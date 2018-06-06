@@ -5,12 +5,17 @@ Rails.application.routes.draw do
   #About page
   get 'about', to: 'pages#about'
   
-  #Resources basically adds all routes
+  #Resources basically adds all routes, this is for articles
   resources :articles
   
   #Signup page
   get 'signup', to: 'users#new'
   resources :users, except: [:new]
+  
+  #Login/logout
+  get 'login', to: 'sessions#new'
+  post 'login', to: 'sessions#create'
+  delete 'logout', to: 'sessions#destroy'
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
