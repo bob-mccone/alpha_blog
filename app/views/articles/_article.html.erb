@@ -17,8 +17,8 @@
                     last updated: <%= time_ago_in_words(article.updated_at) %></small>
           </div>
         </div>
-        <!--Restricting the actions of users so only those that are logged in and created that article can edit and delete their articles-->
-        <% if logged_in? && current_user == article.user %>
+        <!--Restricting the actions of users so only those that are admin or logged in and created that article can edit and delete their articles-->
+        <% if logged_in? && (current_user == article.user || current_user.admin) %>
           <div class="article-actions">
             <!--Button to edit the article that they view, don't forget to give the article-->
             <%= link_to "Edit this article", edit_article_path(article), class: "btn btn-xs btn-primary" %> 

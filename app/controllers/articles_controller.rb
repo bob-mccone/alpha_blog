@@ -84,10 +84,10 @@ class ArticlesController < ApplicationController
       params.require(:article).permit(:title, :description)
     end
   
-    #Method to add in restrictions, allows only users who created them to edit or delete them
+    #Method to add in restrictions, allows admin or users who created them to edit or delete them
     def require_same_user
-      #If current user does not match the user who created that article
-      if current_user != @article.user
+      #If current user does not match the admin or user who created that article
+      if current_user != @article.user and !current_user.admin?
         #Display message
         flash[:danger] = "You can only edit or delete your own articles"
         #Redirect them to the root path, in this case it will be the list of articles

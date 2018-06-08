@@ -4,7 +4,9 @@ class UsersController < ApplicationController
   #Making the @user variable ready for the following actions
   before_action :set_user, only: [:edit, :update, :show]
   #Adding restrictions so you can't edit other peoples profiles
-  before_action :require_same_user, only: [:edit, :update]
+  before_action :require_same_user, only: [:edit, :update, :destroy]
+  #In order to destroy users you must be admin
+  before_action :require_admin, only: [:destroy]
   
   #Displaying 5 users per page
   def index
@@ -47,9 +49,18 @@ class UsersController < ApplicationController
     end
   end
   
+  #Show users action
   def show
     #Pagination, getting all of the users articles but only showing certain ammount per page
     @user_articles = @user.articles.paginate(page: params[:page], per_page: 5)
+  end
+  
+  #Destroy users & articles action 
+  def destroy
+    @user = User.find(params[:id])
+    @user.destroy
+      flash[:danger] = "User and all articles created by user have been deleted"
+    redirect_to users_path
   end
   
   private
@@ -66,10 +77,20 @@ class UsersController < ApplicationController
   #Require_same_user, adds restriction for what you can do with other profiles
   def require_same_user
     #If current logged in user does not match the user that is being edited
-    if current_user !=@user
+    if current_user !=@user and !current_user.admin?
       #Display message
       flash[:danger] = "You can only edit your own account"
       #Redirect them to the logged in root path, in this case it will be the list of articles
+      redirect_to root_path
+    end 
+  end
+  
+  #Require_admin method, stops non admin users having access to destroy action
+  def require_admin
+    #If current logged in user is not admin
+    if logged_in? and !current_user.admin
+      #Display message
+      flash[:danger] = "Only admin users can perform that action"
       redirect_to root_path
     end
   end

@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
-  has_many :articles
+  #Dependent means it will destroy all articles related to that user
+  has_many :articles, dependent: :destroy
   before_save { self.email = email.downcase }
   validates :username, presence: true,
             uniqueness: { case_sensitive: false }, 

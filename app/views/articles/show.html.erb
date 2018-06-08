@@ -29,7 +29,7 @@
   <%= simple_format(@article.description) %>
   <div class="article-actions">
     <!--Making edit and delete actions availiable to logged in users only-->
-    <% if logged_in? && current_user == @article.user %>
+    <% if logged_in? && (current_user == @article.user || current_user.admin?) %>
       <!--Button to edit the article that they view, don't forget to give the article-->
       <%= link_to "Edit this article", edit_article_path(@article), class: "btn btn-xs btn-primary" %> 
       <!--Button to delete the article-->

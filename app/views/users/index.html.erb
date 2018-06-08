@@ -16,6 +16,11 @@
           </li>
           <!--Displays how many articles that person has written-->
           <li><small><%= pluralize(user.articles.count, "article") if user.articles %></small></li>
+          <!--If logged in user is an admin then display the delete link-->
+          <% if logged_in? and current_user.admin? %>
+            <li> <%= link_to "Delete this user", user_path(user), method: :delete, 
+                    data: { confirm: "Are you sure you want to delete the user and all their articles?" } %></li>
+          <% end %>
         </div>
       </div>
     </ul>
