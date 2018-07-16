@@ -7,4 +7,9 @@ class ActiveSupport::TestCase
   fixtures :all
 
   # Add more helper methods to be used by all tests here...
+  #Method that create_categories_test uses
+  def sign_in_as(user, password)
+    #Simulating a user logging in
+    post login_path, session: {email: user.email, password: password}
+  end
 end
