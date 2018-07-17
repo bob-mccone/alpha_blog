@@ -27,6 +27,12 @@
   <hr>
   <!--Displays the formatting as to how you saved the article-->
   <%= simple_format(@article.description) %>
+    <!--Displaying the categories-->
+    <% if @article.categories.any? %>
+      <p>
+        Categories: <%= render @article.categories %>
+      </p>
+    <% end %>
   <div class="article-actions">
     <!--Making edit and delete actions availiable to logged in users only-->
     <% if logged_in? && (current_user == @article.user || current_user.admin?) %>

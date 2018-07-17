@@ -17,6 +17,12 @@
                     last updated: <%= time_ago_in_words(article.updated_at) %></small>
           </div>
         </div>
+        <!--Displaying article categories on the articles show page-->
+        <% if article.categories.any? %>
+          <p>
+            Categories: <%= render article.categories %>
+          </p>
+        <% end %>
         <!--Restricting the actions of users so only those that are admin or logged in and created that article can edit and delete their articles-->
         <% if logged_in? && (current_user == article.user || current_user.admin) %>
           <div class="article-actions">

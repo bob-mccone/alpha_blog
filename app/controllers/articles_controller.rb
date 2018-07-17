@@ -79,9 +79,9 @@ class ArticlesController < ApplicationController
       @article = Article.find(params[:id])
     end
     
-    #Article_params method, removes repeated code
+    #Article_params method, removes repeated code, white listing
     def article_params
-      params.require(:article).permit(:title, :description)
+      params.require(:article).permit(:title, :description, category_ids: [])
     end
   
     #Method to add in restrictions, allows admin or users who created them to edit or delete them

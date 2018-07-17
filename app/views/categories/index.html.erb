@@ -1,3 +1,4 @@
+<!--Categories index page-->
 <h1 align="center">
   Listing all categories
 </h1>
@@ -12,6 +13,8 @@
           <li class="article-title">
             <%= link_to "#{category.name}", category_path(category) %>
           </li>
+          <!--Displays how many articles are in each category-->
+          <li><small><%= pluralize(category.articles.count, "article") %></small></li>
         </div>
       </div>  
     </ul>

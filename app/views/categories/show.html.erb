@@ -1,0 +1,14 @@
+<!--Categories show file-->
+<h1 align="center">
+  <%= "Category: " + @category.name %>
+</h1>
+<div align="center">
+  <!--Make the page paginate i.e. only display certain amount of articles-->
+  <%= will_paginate @category_articles %>
+</div>
+<!--Render the category article page but the obj will be the category_articles variable-->
+<%= render 'articles/article', obj: @category_articles %>
+<div align="center">
+  <!--Make the page paginate i.e. only display certain amount of articles-->
+  <%= will_paginate @category_articles %>
+</div>

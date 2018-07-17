@@ -33,7 +33,10 @@ class CategoriesController < ApplicationController
   
   #Show categories controller
   def show
-    
+    #Category variable from the categories show file
+    @category = Category.find(params[:id])
+    #Category_articles variable from the categories show file and handles paginate
+    @category_articles = @category.articles.paginate(page: params[:page], per_page: 5)
   end
   
   private
