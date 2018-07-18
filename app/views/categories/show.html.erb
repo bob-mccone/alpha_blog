@@ -3,6 +3,13 @@
   <%= "Category: " + @category.name %>
 </h1>
 <div align="center">
+  <!--If user is logged in and is an admin, show the edit categories link-->
+  <% if logged_in? and current_user.admin? %>
+    <div class="row">
+      <!--Link to edit the categories from the show page-->
+      <span class="badge"><%= link_to "Edit category name", edit_category_path(@category) %></span>
+    </div>
+  <% end %>
   <!--Make the page paginate i.e. only display certain amount of articles-->
   <%= will_paginate @category_articles %>
 </div>

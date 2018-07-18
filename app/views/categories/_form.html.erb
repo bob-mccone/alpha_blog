@@ -1,0 +1,29 @@
+<!--Categories form partial file-->
+
+<!--Refer to the error partial file and then tell it what the obj is in that file, in this case it will be the category-->
+<%= render 'shared/errors', obj: @category %>
+<!--Ruby form builder-->
+<%= form_for(@category, :html => {class: "form-horizontal", role: "form"}) do |f| %>
+  <!--Displays username label and textbox-->
+  <div class="form-group">
+    <div class="control-label col-sm-2">
+      <!--Category name label-->
+      <%= f.label :name %>
+    </div>
+    <div class="col-sm-4">
+      <!--Category name input textbox-->
+      <%= f.text_field :name, class: "form-control", placeholder: "Category name", autofocus: true %>
+    </div>
+  </div>
+  <!--Displays submit button-->
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-18">
+      <!--Submit button, because this is now in a partial form new_record checks if it is a new record-->
+      <%= f.submit class: "btn btn-primary btn-lg" %>
+    </div>
+  </div>
+<% end %>
+<div class="col-xs-4 col-xs-offset-4">
+  <!--Creating a link so they can go back-->
+  [ <%= link_to "Cancel request and return to articles listing", articles_path %> ]
+</div>

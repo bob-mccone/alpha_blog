@@ -31,6 +31,27 @@ class CategoriesController < ApplicationController
     end
   end
   
+  #Edit categories controller
+  def edit
+    #Finding the category to edit
+    @category = Category.find(params[:id])
+  end
+  
+  def update
+    #Find the category to be updated
+    @category = Category.find(params[:id])
+    #If update was successful
+    if @category.update(category_params)
+      #Display message
+      flash[:success] = "Category name was successfully updated"
+      #Redirect them to the category show page
+      redirect_to category_path(@category)
+    else
+      #Else if not successful render the category edit page again
+      render 'edit'
+    end
+  end
+  
   #Show categories controller
   def show
     #Category variable from the categories show file
